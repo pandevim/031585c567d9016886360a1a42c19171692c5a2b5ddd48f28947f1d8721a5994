@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import { Card } from "components";
-import { TagPicker } from "rsuite";
-import _ from "lodash";
+import { TagPicker, Sidebar, Content } from "rsuite";
+
+import { _ } from "utils";
 
 const Home = () => {
   const form = useSelector(state => state.form);
@@ -44,31 +46,30 @@ const Home = () => {
 
   return (
     <div className="home" style={styles.container}>
-      <div className="filter" style={styles.filter}>
-        <TagPicker
-          data={tagData}
-          defaultValue={["all,"]}
-          style={{ width: 300 }}
-          menuStyle={{ width: 300 }}
-          onChange={onChangeTag}
-        />
-      </div>
-      <div className="recipes" style={styles.recipes}>
-        {recipes.map((recipe, index) => (
-          <Card recipe={recipe} key={index} id={index} />
-        ))}
-      </div>
+      <Sidebar>
+        <div className="filter" style={styles.filter}>
+          <TagPicker
+            data={tagData}
+            defaultValue={["all,"]}
+            style={{ width: 300 }}
+            menuStyle={{ width: 300 }}
+            onChange={onChangeTag}
+          />
+        </div>
+      </Sidebar>
+      <Content>
+        <div className="recipes" style={styles.recipes}>
+          {recipes.map((recipe, index) => (
+            <Card recipe={recipe} key={index} id={index} />
+          ))}
+        </div>
+      </Content>
     </div>
   );
 };
 
 const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
+  container: {},
 };
 
 export default Home;

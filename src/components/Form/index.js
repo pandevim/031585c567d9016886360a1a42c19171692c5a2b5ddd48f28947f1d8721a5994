@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { saveRecipe, saveIngredient, saveDataLocally } from "./formSlice";
-import { v4 as uuid } from "uuid";
+
+import { uuid } from "utils";
 
 const Page = () => {
   const recipe = useSelector(state => state.form.recipes[0]);
