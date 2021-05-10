@@ -1,38 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import low from "lowdb";
-import LocalStorage from "lowdb/adapters/LocalStorage";
+import { db } from "utils";
 
-const adapter = new LocalStorage("db");
-const db = low(adapter);
-
-const initialState = {
-  recipes: [
-    {
-      _id: "",
-      name: "",
-      steps: [""],
-      url: "",
-      ingredients: [{ name: "", quantity: "", unit: "" }],
+// Setup Local Storage on first Visit
+if (db.getState()) {
+  db.defaults({
+    form: {
+      recipes: [
+        {
+          _id: "",
+          name: "",
+          steps: [""],
+          url: "",
+          ingredients: [{ name: "", quantity: "", unit: "" }],
+        },
+      ],
+      ingredients: [{ name: "all", _id: "" }],
     },
-  ],
-  ingredients: [{ name: "all", _id: "" }],
-};
-
-db.defaults({
-  form: initialState,
-}).write();
+  }).write();
+}
 
 const saveDataLocally = createAsyncThunk(
   "form/saveDataLocally",
   async (_, { getState }) => {
-    const { recipes, ingredients } = getState();
-    return db.get("form").set({ recipes, ingredients }).write();
+    const { form } = getState();
+    return db.set("form", form).write();
   }
 );
 
 export const formSlice = createSlice({
   name: "form",
-  initialState: initialState,
+  initialState: db.getState().form,
   reducers: {
     saveRecipe: (state, action) => {
       state.recipes.push(action.payload);
