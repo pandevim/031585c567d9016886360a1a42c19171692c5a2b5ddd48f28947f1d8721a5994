@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import { saveRecipe, saveIngredient, saveDataLocally } from "./formSlice";
 
-import { Button } from "rsuite";
+import { Button, Alert } from "rsuite";
 
 import { uuid } from "utils";
 
@@ -22,7 +22,10 @@ const Page = () => {
       )
     );
     dispatch(saveDataLocally());
-    setTimeout(() => setSubmitting(false), 400);
+    setTimeout(() => {
+      setSubmitting(false);
+      Alert.info("Saved Locally.");
+    }, 400);
   };
 
   return (

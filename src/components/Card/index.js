@@ -3,7 +3,7 @@ const Card = ({ recipe, id }) => {
     <>
       {recipe._id && (
         <div className="card" style={styles.container} key={id}>
-          <p>{recipe.name}</p>
+          <h1>{recipe.name}</h1>
           <img src={recipe.url} alt={recipe.name} style={styles.image}></img>
           <ol>
             {recipe.steps.map((step, index) => (
@@ -28,7 +28,7 @@ const Card = ({ recipe, id }) => {
 const styles = {
   container: {},
   image: {
-    width: 500,
+    maxWidth: 400,
   },
 };
 

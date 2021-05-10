@@ -39,9 +39,7 @@ export const formSlice = createSlice({
     },
   },
   extraReducers: {
-    [saveDataLocally.fulfilled]: (state, action) => {
-      console.log("saved locally");
-    },
+    [saveDataLocally.fulfilled]: (state, action) => {},
   },
 });
 
