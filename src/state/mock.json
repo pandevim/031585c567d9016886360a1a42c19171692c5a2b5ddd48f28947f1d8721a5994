@@ -1,0 +1,24 @@
+{
+  "recipes": [
+    {
+      "_id": "0",
+      "name": "Tomato and fenugreek chutney",
+      "steps": [
+        "In a pan pour some oil, add red chili powder, urad dal, onion, fenugreek leaves, coriander leaves, green chili, tomatoes. Sauté the mixture till moisture is absorbed and ingredients is cooked.",
+        "Add in tamarind water and season the mixture with salt.",
+        "Grind the mixture and keep aside",
+        "Heat oil add mustard seeds, curry leaves and red chili for tempering."
+      ],
+      "url": "https://example.com",
+      "ingredients": [
+        { "name": "Onion", "quantity": "2", "unit": "small" },
+        { "name": "Chilli Powder", "quantity": "1", "unit": "tbsp" }
+      ]
+    }
+  ],
+  "ingredients": [
+    { "name": "all", "_id": "" },
+    { "name": "Onion", "_id": "0" },
+    { "name": "Chilli Powder", "_id": "0" }
+  ]
+}
