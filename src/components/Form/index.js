@@ -70,9 +70,11 @@ const Page = () => {
                   <div>
                     {values.steps.map((step, index) => (
                       <div key={index}>
-                        <label htmlFor={`steps.${index}`}>{index + 1}</label>
+                        <label htmlFor={`steps.${index}`}>
+                          Step {index + 1}
+                        </label>
                         <Field name={`steps.${index}`} />
-                        {index > 0 && (
+                        {!!index && (
                           <Button
                             type="button"
                             onClick={() => arrayHelpers.remove(index)}
@@ -113,7 +115,7 @@ const Page = () => {
                           Unit
                         </label>
                         <Field name={`ingredients.${index}.unit`} />
-                        {index > 0 && (
+                        {!!index && (
                           <Button
                             type="button"
                             onClick={() => arrayHelpers.remove(index)}
