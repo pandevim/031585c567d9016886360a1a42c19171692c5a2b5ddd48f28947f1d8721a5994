@@ -27,77 +27,125 @@ const Page = () => {
 
   return (
     <div className="form" style={styles.container}>
-      <Formik initialValues={recipe} onSubmit={onSubmit}>
+      <Formik
+        initialValues={recipe}
+        validate={({ name, url, steps, ingredients }) => {
+          const errors = {};
+
+          if (!name) {
+            errors.name = "Required";
+          } else if (!url) {
+            errors.url = "Required";
+          } else if (!steps[0].length) {
+            errors.steps = "Required";
+          } else if (
+            !ingredients[0].name ||
+            !ingredients[0].quantity ||
+            !ingredients[0].unit
+          ) {
+            errors.ingredients = "Required";
+          }
+
+          return errors;
+        }}
+        onSubmit={onSubmit}
+      >
         {({ isSubmitting, handleChange, values }) => (
           <Form style={styles.form}>
-            <label for="name">Recipe Name</label>
-            <Field type="text" name="name" onChange={handleChange} />
-            <ErrorMessage name="name" component="div" />
-            <label for="url">Recipe Image Url</label>
-            <Field type="text" name="url" onChange={handleChange} />
-            <ErrorMessage name="url" component="div" />
-            <label for="steps">Steps to make</label>
-            <FieldArray name="steps">
-              {arrayHelpers => (
-                <div>
-                  {values.steps.map((step, index) => (
-                    <div key={index}>
-                      <label for={`steps.${index}`}>{index + 1}</label>
-                      <Field name={`steps.${index}`} />
-                      <Button
-                        type="button"
-                        onClick={() => arrayHelpers.remove(index)}
-                      >
-                        - Remove
-                      </Button>
+            <fieldset>
+              <label htmlFor="name">Recipe Name</label>
+              <Field type="text" name="name" onChange={handleChange} />
+              <ErrorMessage name="name" component="div" />
+            </fieldset>
 
-                      <Button
-                        type="button"
-                        onClick={() => arrayHelpers.push("")}
-                      >
-                        + Add
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </FieldArray>
-            <label for="ingredients">Add Ingredients</label>
-            <FieldArray name="ingredients">
-              {arrayHelpers => (
-                <div>
-                  {values.ingredients.map((ingredient, index) => (
-                    <div key={index}>
-                      <Field name={`ingredients.${index}.name`} />
-                      <Field name={`ingredients.${index}.quantity`} />
-                      <Field name={`ingredients.${index}.unit`} />
-                      <Button
-                        type="button"
-                        onClick={() => arrayHelpers.remove(index)}
-                      >
-                        - Remove
-                      </Button>
+            <fieldset>
+              <label htmlFor="url">Recipe Image Url</label>
+              <Field type="url" name="url" onChange={handleChange} />
+              <ErrorMessage name="url" component="div" />
+            </fieldset>
+            <fieldset>
+              <label htmlFor="steps">Steps to make</label>
+              <FieldArray name="steps">
+                {arrayHelpers => (
+                  <div>
+                    {values.steps.map((step, index) => (
+                      <div key={index}>
+                        <label htmlFor={`steps.${index}`}>{index + 1}</label>
+                        <Field name={`steps.${index}`} />
+                        {index > 0 && (
+                          <Button
+                            type="button"
+                            onClick={() => arrayHelpers.remove(index)}
+                          >
+                            - Remove
+                          </Button>
+                        )}
 
-                      <Button
-                        type="button"
-                        onClick={() => {
-                          arrayHelpers.push({
-                            name: "",
-                            quantity: "",
-                            unit: "",
-                          });
-                        }}
-                      >
-                        + Add
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </FieldArray>
-            <Button type="submit" loading={isSubmitting}>
-              Submit
-            </Button>
+                        <Button
+                          type="button"
+                          onClick={() => arrayHelpers.push("")}
+                        >
+                          + Add
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </FieldArray>
+              <ErrorMessage name="steps" component="div" />
+            </fieldset>
+            <fieldset>
+              <label htmlFor="ingredients">Add Ingredients</label>
+              <FieldArray name="ingredients">
+                {arrayHelpers => (
+                  <div>
+                    {values.ingredients.map((ingredient, index) => (
+                      <div key={index}>
+                        <label htmlFor={`ingredients.${index}.name`}>
+                          Name
+                        </label>
+                        <Field name={`ingredients.${index}.name`} />
+                        <label htmlFor={`ingredients.${index}.quantity`}>
+                          Quantity
+                        </label>
+                        <Field name={`ingredients.${index}.quantity`} />
+                        <label htmlFor={`ingredients.${index}.unit`}>
+                          Unit
+                        </label>
+                        <Field name={`ingredients.${index}.unit`} />
+                        {index > 0 && (
+                          <Button
+                            type="button"
+                            onClick={() => arrayHelpers.remove(index)}
+                          >
+                            - Remove
+                          </Button>
+                        )}
+
+                        <Button
+                          type="button"
+                          onClick={() => {
+                            arrayHelpers.push({
+                              name: "",
+                              quantity: "",
+                              unit: "",
+                            });
+                          }}
+                        >
+                          + Add
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </FieldArray>
+              <ErrorMessage name="ingredients" component="div" />
+            </fieldset>
+            <fieldset>
+              <Button type="submit" loading={isSubmitting}>
+                Submit
+              </Button>
+            </fieldset>
           </Form>
         )}
       </Formik>

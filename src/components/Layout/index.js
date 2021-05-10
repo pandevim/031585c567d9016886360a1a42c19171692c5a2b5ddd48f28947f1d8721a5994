@@ -12,8 +12,12 @@ const Layout = props => {
             </Navbar.Header>
             <Navbar.Body>
               <Nav>
-                <Nav.Item eventKey="dashboard">
-                  <Link to="/dashboard">Dashboard</Link>
+                <Nav.Item
+                  componentClass={Link}
+                  eventKey="dashboard"
+                  to="/dashboard"
+                >
+                  Dashboard
                 </Nav.Item>
               </Nav>
             </Navbar.Body>
