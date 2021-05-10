@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, Header, Footer } from "rsuite";
+import { Navbar, Nav, Container, Header } from "rsuite";
 import { Link } from "react-router-dom";
 
 const Layout = props => {
@@ -7,14 +7,11 @@ const Layout = props => {
       <Container>
         <Header>
           <Navbar>
-            <Navbar.Header>
+            <Navbar.Header style={styles.header}>
               <Link to="/">EasierChef</Link>
             </Navbar.Header>
             <Navbar.Body>
               <Nav>
-                <Nav.Item eventKey="home">
-                  <Link to="/">Home</Link>
-                </Nav.Item>
                 <Nav.Item eventKey="dashboard">
                   <Link to="/dashboard">Dashboard</Link>
                 </Nav.Item>
@@ -22,15 +19,31 @@ const Layout = props => {
             </Navbar.Body>
           </Navbar>
         </Header>
-        <Container>{props.children}</Container>
-        <Footer>Footer</Footer>
+        <Container style={styles.body}>{props.children}</Container>
       </Container>
     </div>
   );
 };
 
 const styles = {
-  container: {},
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  body: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 export default Layout;
