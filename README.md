@@ -1,6 +1,6 @@
 # EasierChef
 
-This is a receipe sharing website made for BriskLogic Assignment.
+This is a receipe sharing website made in ReactJS, Redux, Formik.
 
 ## Features
 
